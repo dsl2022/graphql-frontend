@@ -1,17 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+// import ReactDOM from 'react-dom';
+// import ApolloClient from 'apollo-boost';
+import { ApolloClient, ApolloProvider,InMemoryCache} from '@apollo/client';
+// import { ApolloProvider } from '@apollo/react-hooks';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { createRoot } from 'react-dom/client';
+// const client = new ApolloClient({
+//   uri: 'http://localhost:4000',
+// });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+// this can be local or a remote endpoint
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  uri: 'http://localhost:4000/graphql',
+
+});
+
+// ReactDOM.render(
+//   <ApolloProvider client={client}>
+//     <App />
+//   </ApolloProvider>,
+//   document.getElementById('root')
+// );
+createRoot(document.getElementById('root')).render(
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>
+  </ApolloProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// createRoot( <ApolloProvider client={client}>
+//   <App />
+// </ApolloProvider>,document.getElementById('root')).render(<App />);
